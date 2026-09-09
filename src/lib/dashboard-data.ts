@@ -129,7 +129,7 @@ function buildDevices(): DeviceCard[] {
       if (i === 1 && p.alarm) status = "alarm";
       else if (i === 2 && p.warn) status = "warn";
       else if (i === 3 && p.offline) status = "offline";
-      const defs = METRIC_POOL[p.name];
+      const defs = METRIC_POOL[p.name]!;
       const metrics = defs.map((d) => {
         const span = d.hi - d.lo;
         let v = d.lo + span * (0.15 + r() * 0.75);
@@ -157,7 +157,7 @@ function buildDevices(): DeviceCard[] {
         energy: {
           prod: Number((800 + r() * 2400).toFixed(0)),
           idle: Number((40 + r() * 260).toFixed(0)),
-          tier: (["峰", "平", "谷"] as const)[Math.floor(r() * 3)],
+          tier: (["峰", "平", "谷"] as const)[Math.floor(r() * 3)] ?? "平",
         },
       });
     }
