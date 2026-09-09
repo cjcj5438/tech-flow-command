@@ -55,7 +55,7 @@ export type DeviceCard = {
   batch: string;
   mode: "生产状态采集" | "设备空转采集";
   metrics: [Metric, Metric];
-  pump?: { temp: number; press: string; valve: "开启" | "关闭" | "调节中" };
+  pump?: { temp: number; press: string; valve: "开启" | "关闭" | "调节中" } | undefined;
   energy: { prod: number; idle: number; tier: "峰" | "平" | "谷" };
 };
 
