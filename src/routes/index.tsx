@@ -40,26 +40,30 @@ function Screen() {
   }, []);
 
   return (
-    <main className="grid-bg h-screen w-screen overflow-hidden bg-[#050c17]">
+    <main className="dot-grid h-screen w-screen overflow-hidden">
       <div className="flex h-full w-full items-center justify-center">
         <div
           style={{ width: W, height: H, transform: `scale(${scale})`, transformOrigin: "center center" }}
-          className="relative shrink-0 overflow-hidden bg-[radial-gradient(ellipse_at_50%_0%,#0d2544_0%,#050c17_70%)]"
+          className="relative shrink-0 overflow-hidden bg-[radial-gradient(ellipse_at_50%_-10%,#062442_0%,#020611_65%)]"
         >
-          <div className="grid-bg pointer-events-none absolute inset-0 opacity-60" />
-          <div className="corner corner-2 relative flex h-full w-full flex-col p-[8px] pt-0">
+          <div className="dot-grid pointer-events-none absolute inset-0 opacity-70" />
+          {/* 垂直扫描线光晕 */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="anim-scany h-[2px] w-full bg-[linear-gradient(90deg,transparent,rgba(0,240,255,0.35),transparent)]" />
+          </div>
+          <div className="relative flex h-full w-full flex-col p-[8px] pt-0">
             <TopBar />
             <div className="mt-[8px] flex min-h-0 flex-1 gap-[10px]">
-              <div className="w-[464px] shrink-0">
+              <div className="w-[470px] shrink-0">
                 <ProcessOverview />
               </div>
-              <div className="w-[1996px] shrink-0">
+              <div className="w-[1990px] shrink-0">
                 <DeviceWall />
               </div>
-              <div className="w-[860px] shrink-0">
+              <div className="w-[862px] shrink-0">
                 <AlarmPanel />
               </div>
-              <div className="w-[582px] shrink-0">
+              <div className="w-[584px] shrink-0">
                 <CorePanel />
               </div>
             </div>
