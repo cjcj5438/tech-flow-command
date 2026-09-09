@@ -59,7 +59,7 @@ export type DeviceCard = {
   energy: { prod: number; idle: number; tier: "峰" | "平" | "谷" };
 };
 
-const PROC_ABBR: Record<string, string> = {
+export const PROC_ABBR: Record<string, string> = {
   烧结: "SJ", 回火: "HH", 氢化: "QH", 气流磨: "QM", 还原: "HY", 扩散: "KS",
   气流粉: "QF", 成型: "CX", 探伤: "TS", 制粉: "ZF", 包装: "BZ",
 };
@@ -163,7 +163,11 @@ function buildDevices(): DeviceCard[] {
     }
   });
   const order: Record<Status, number> = { alarm: 0, warn: 1, offline: 2, normal: 3 };
-  return out.sort((a, b) => order[a.status] - order[b.status] || a.process.localeCompare(b.process));
+  // 稳定排序（不使用 localeCompare，避免 SSR / 客户端排序结果不一致）
+  return out
+    .map((d, i) => ({ d, i }))
+    .sort((a, b) => order[a.d.status] - order[b.d.status] || a.i - b.i)
+    .map(({ d }) => d);
 }
 
 export const DEVICES = buildDevices();

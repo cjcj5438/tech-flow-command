@@ -28,11 +28,7 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
 
-  /* 科技大屏语义色 */
-  --color-deep: var(--deep);
-  --color-deep-2: var(--deep-2);
-  --color-panel: var(--panel);
-  --color-line: var(--line);
+  /* HUD 语义色 */
   --color-cyan: var(--cyan);
   --color-mint: var(--mint);
   --color-ice: var(--ice);
@@ -40,40 +36,41 @@
   --color-danger: var(--danger);
   --color-yellow: var(--yellow);
   --color-idle: var(--idle);
-  --font-mono: "Share Tech Mono", ui-monospace, monospace;
+  --font-mono: "Share Tech Mono", "DIN", Consolas, ui-monospace, monospace;
   --font-tech: "Rajdhani", "Noto Sans SC", sans-serif;
 }
 
 :root {
-  --radius: 0.25rem;
-  --deep: oklch(0.16 0.045 250);
-  --deep-2: oklch(0.11 0.035 255);
-  --panel: oklch(0.19 0.05 248 / 0.45);
-  --line: oklch(0.75 0.13 205 / 0.22);
-  --cyan: oklch(0.83 0.15 197);
-  --mint: oklch(0.86 0.19 165);
-  --ice: oklch(0.72 0.13 240);
-  --warn: oklch(0.78 0.17 65);
-  --danger: oklch(0.66 0.24 22);
-  --yellow: oklch(0.88 0.17 95);
-  --idle: oklch(0.55 0.02 240);
+  --radius: 0rem;
 
-  --background: var(--deep-2);
-  --foreground: oklch(0.93 0.02 220);
-  --card: var(--panel);
-  --card-foreground: oklch(0.93 0.02 220);
-  --popover: var(--deep);
-  --popover-foreground: oklch(0.93 0.02 220);
+  /* 参考图同款荧光 HUD 配色 */
+  --void: #020611;
+  --void-2: #04101f;
+  --cyan: #00f0ff;
+  --mint: #00ff9d;
+  --ice: #4ea8ff;
+  --warn: #ffb300;
+  --danger: #ff2a55;
+  --yellow: #ffe14d;
+  --idle: #4a6076;
+  --line: rgba(0, 240, 255, 0.16);
+
+  --background: var(--void);
+  --foreground: #cfeeff;
+  --card: rgba(4, 18, 34, 0.6);
+  --card-foreground: #cfeeff;
+  --popover: var(--void-2);
+  --popover-foreground: #cfeeff;
   --primary: var(--cyan);
-  --primary-foreground: oklch(0.14 0.04 250);
-  --secondary: oklch(0.25 0.05 245);
-  --secondary-foreground: oklch(0.93 0.02 220);
-  --muted: oklch(0.25 0.04 245);
-  --muted-foreground: oklch(0.68 0.04 220);
-  --accent: oklch(0.3 0.07 235);
-  --accent-foreground: oklch(0.95 0.02 220);
+  --primary-foreground: #02121c;
+  --secondary: rgba(0, 240, 255, 0.1);
+  --secondary-foreground: #cfeeff;
+  --muted: rgba(0, 240, 255, 0.08);
+  --muted-foreground: rgba(120, 178, 210, 0.72);
+  --accent: rgba(0, 240, 255, 0.14);
+  --accent-foreground: #dffbff;
   --destructive: var(--danger);
-  --destructive-foreground: oklch(0.97 0.01 220);
+  --destructive-foreground: #fff;
   --border: var(--line);
   --input: var(--line);
   --ring: var(--cyan);
@@ -82,167 +79,149 @@
 @layer base {
   * {
     border-color: var(--color-border);
+    border-radius: 0 !important;
   }
   body {
-    background-color: #050c17;
+    background-color: var(--void);
     color: var(--color-foreground);
     font-family: var(--font-tech);
     overflow: hidden;
   }
 }
 
-/* ---------- 科技感工具类 ---------- */
+/* ---------- HUD 底纹 ---------- */
 
-@utility grid-bg {
+@utility dot-grid {
+  background-color: var(--void);
   background-image:
-    linear-gradient(rgba(0, 200, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 200, 255, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
+    radial-gradient(rgba(0, 240, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(rgba(0, 240, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.035) 1px, transparent 1px);
+  background-size: 16px 16px, 96px 96px, 96px 96px;
 }
 
-@utility panel {
+@utility hud {
   position: relative;
   background:
-    linear-gradient(180deg, rgba(10, 30, 55, 0.72), rgba(5, 14, 26, 0.72));
-  border: 1px solid rgba(0, 200, 255, 0.15);
+    linear-gradient(180deg, rgba(0, 60, 96, 0.16), rgba(2, 10, 22, 0.7));
+  border: 1px solid rgba(0, 240, 255, 0.15);
   box-shadow:
-    inset 0 0 24px rgba(0, 160, 255, 0.06),
-    0 0 12px rgba(0, 140, 220, 0.05);
+    inset 0 0 26px rgba(0, 160, 255, 0.05),
+    0 0 10px rgba(0, 120, 200, 0.05);
 }
 
-/* L 型科技拐角 */
-@utility corner {
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border: 1px solid rgba(0, 229, 255, 0.85);
-    pointer-events: none;
-  }
-  &::before {
-    top: -1px;
-    left: -1px;
-    border-right: none;
-    border-bottom: none;
-  }
-  &::after {
-    bottom: -1px;
-    right: -1px;
-    border-left: none;
-    border-top: none;
-  }
-}
-
-@utility corner-2 {
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    border: 1px solid rgba(0, 229, 255, 0.55);
-    pointer-events: none;
-  }
-  &::before {
-    top: -1px;
-    right: -1px;
-    border-left: none;
-    border-bottom: none;
-  }
-  &::after {
-    bottom: -1px;
-    left: -1px;
-    border-right: none;
-    border-top: none;
-  }
-}
-
-@utility ruler {
+@utility ruler-x {
   background-image: repeating-linear-gradient(
     90deg,
-    rgba(0, 229, 255, 0.35) 0 1px,
-    transparent 1px 8px
+    rgba(0, 240, 255, 0.4) 0 1px,
+    transparent 1px 7px
+  );
+}
+
+@utility ruler-y {
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(0, 240, 255, 0.35) 0 1px,
+    transparent 1px 7px
   );
 }
 
 @utility num {
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 6px currentColor;
+}
+
+@utility code-x {
+  font-family: var(--font-mono);
+  letter-spacing: 0.18em;
+  color: rgba(120, 190, 220, 0.55);
 }
 
 @utility glow-cyan {
   color: var(--cyan);
-  text-shadow: 0 0 10px rgba(34, 226, 255, 0.55);
+  text-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
 }
 @utility glow-mint {
   color: var(--mint);
-  text-shadow: 0 0 10px rgba(45, 255, 190, 0.5);
+  text-shadow: 0 0 10px rgba(0, 255, 157, 0.55);
 }
 @utility glow-warn {
   color: var(--warn);
-  text-shadow: 0 0 10px rgba(255, 165, 50, 0.5);
+  text-shadow: 0 0 10px rgba(255, 179, 0, 0.55);
 }
 @utility glow-danger {
   color: var(--danger);
-  text-shadow: 0 0 12px rgba(255, 60, 60, 0.6);
+  text-shadow: 0 0 12px rgba(255, 42, 85, 0.65);
+}
+
+@utility fade-mask-y {
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    #000 25px,
+    #000 calc(100% - 25px),
+    transparent 100%
+  );
 }
 
 /* ---------- 动画 ---------- */
 
 @keyframes breath {
-  0%, 100% { opacity: 1; filter: brightness(1.15); }
-  50% { opacity: 0.45; filter: brightness(0.8); }
+  0%, 100% { opacity: 1; filter: brightness(1.2); }
+  50% { opacity: 0.4; filter: brightness(0.75); }
 }
 @keyframes scanY {
-  0% { transform: translateY(-10%); opacity: 0; }
-  15% { opacity: 1; }
-  85% { opacity: 1; }
-  100% { transform: translateY(1000%); opacity: 0; }
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(2000%); }
 }
 @keyframes scanX {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(420%); }
 }
 @keyframes marquee {
   0% { transform: translateY(0); }
   100% { transform: translateY(-50%); }
 }
-@keyframes spinSlow {
-  to { transform: rotate(360deg); }
-}
-@keyframes spinRev {
-  to { transform: rotate(-360deg); }
-}
+@keyframes spinSlow { to { transform: rotate(360deg); } }
+@keyframes spinRev { to { transform: rotate(-360deg); } }
 @keyframes flick {
   0%, 100% { opacity: 1; }
-  47% { opacity: 0.75; }
-  50% { opacity: 0.35; }
-  53% { opacity: 0.85; }
+  47% { opacity: 0.72; }
+  50% { opacity: 0.3; }
+  53% { opacity: 0.9; }
 }
 @keyframes riseIn {
-  from { opacity: 0; transform: translateY(12px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes dashMove {
-  to { stroke-dashoffset: -200; }
-}
+@keyframes dashMove { to { stroke-dashoffset: -240; } }
 @keyframes pulseRing {
-  0% { transform: scale(0.85); opacity: 0.9; }
-  100% { transform: scale(1.6); opacity: 0; }
+  0% { transform: scale(0.8); opacity: 0.8; }
+  100% { transform: scale(1.9); opacity: 0; }
 }
-@keyframes barPulse {
-  0%, 100% { opacity: 0.85; }
-  50% { opacity: 0.4; }
+@keyframes anchorPulse {
+  0%, 100% { r: 2.4; opacity: 1; }
+  50% { r: 4.2; opacity: 0.45; }
+}
+@keyframes shimmer {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+@keyframes meterFlick {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
 
-@utility anim-breath { animation: breath 1.4s ease-in-out infinite; }
-@utility anim-flick { animation: flick 4s linear infinite; }
-@utility anim-spin-slow { animation: spinSlow 12s linear infinite; }
-@utility anim-spin-rev { animation: spinRev 18s linear infinite; }
+@utility anim-breath { animation: breath 1.6s ease-in-out infinite; }
+@utility anim-flick { animation: flick 5s linear infinite; }
+@utility anim-spin-slow { animation: spinSlow 16s linear infinite; transform-origin: center; }
+@utility anim-spin-rev { animation: spinRev 24s linear infinite; transform-origin: center; }
 @utility anim-rise { animation: riseIn 0.5s ease-out both; }
-@utility anim-scanx { animation: scanX 3.5s linear infinite; }
-@utility anim-dash { animation: dashMove 6s linear infinite; }
-@utility anim-bar { animation: barPulse 2s ease-in-out infinite; }
+@utility anim-scanx { animation: scanX 4.5s linear infinite; }
+@utility anim-scany { animation: scanY 7s linear infinite; }
+@utility anim-dash { animation: dashMove 8s linear infinite; }
+@utility anim-shimmer { animation: shimmer 2.2s linear infinite; }
+@utility anim-anchor { animation: anchorPulse 2s ease-in-out infinite; }
+@utility anim-meter { animation: meterFlick 2.4s ease-in-out infinite; }
