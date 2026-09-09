@@ -188,8 +188,8 @@ export function RingGauge({
             return (
               <line
                 key={i}
-                x1={cx + Math.cos(a) * r1} y1={cx + Math.sin(a) * r1}
-                x2={cx + Math.cos(a) * r2} y2={cx + Math.sin(a) * r2}
+                x1={(cx + Math.cos(a) * r1).toFixed(3)} y1={(cx + Math.sin(a) * r1).toFixed(3)}
+                x2={(cx + Math.cos(a) * r2).toFixed(3)} y2={(cx + Math.sin(a) * r2).toFixed(3)}
                 stroke={color} strokeOpacity={long ? 0.55 : 0.2} strokeWidth="1"
               />
             );
