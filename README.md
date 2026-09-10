@@ -1,14 +1,133 @@
-# Welcome to your Lovable project
+# Industrial Command Center
+
+这是参考效果图你可以做参考或者复刻。展示的内容如下， 排版自由，要突出重点数据， 要加大量动画效果；科技感炫酷感强；
+
+
+请基于当前大屏进行UI重构与业务数据深度整合，整体视觉必须严格对齐科技感暗黑工业UI风格（参考图：深黑微蓝底底色、极细发光网格线、L型科技边角、荧光青绿/冷蓝数据配色、仪表与雷达图元素、DIN等宽数字），保持 3952px × 832px 纯显示无点击布局，详细内容清单如下：
+
+
+
+
+一、视觉风格与UI质感重构
+
+容器与底纹：背景采用深邃黑蓝（#0a1628 / #050c17），卡片与模块使用半透明发光线框（rgba(0, 200, 255, 0.15)），四角加入科技感 L 型拐角标记与极细刻度尺线。
+
+数据排版风格：关键数字采用高亮发光等宽字体；状态色规范为荧光青绿（正常/运行）、警示橙（预警）、霓虹红（严重/关键报警）、深灰（空闲/离线）。
+
+图表元素增强：加入科技仪表环、折线面积趋势图、迷你柱状电平条，还原控制中心驾驶舱的视觉冲击力。
+
+二、各模块详细显示内容
+
+1. 顶部状态栏（宽 3952px × 高 60px）
+
+
+
+
+左侧：发光标题「京磁大厂集控中心」，副标题「数据采集 · 集中控制」。
+
+中间：实时跳动时钟、日期与星期。
+
+右侧核心指标横排：测点总数（168）、设备总数/在线数（22/20）、PLC通信数/在线数（45/42）、实时告警数（3，呼吸闪烁）、MES待确认数（2，呼吸闪烁）。
+
+2. 模块一：工序总览（宽 ~474px，双列平铺无滚动）
+
+
+
+
+展示全部 11 个工序（烧结、回火、氢化、气流磨、还原、扩散、气流粉、成型、探伤、制粉、包装）。
+
+单项内容：状态指示灯、工序名、设备总数与在线数（如 22台 20在线）。
+
+异常角标：仅在不为0时展示黑圈离线数（⚫离N）、橙圈预警数（🟠预N）、红圈报警数（🔴警N）。
+
+3. 模块二：全厂设备卡片墙（宽 ~2016px，15秒自动翻页）
+
+
+
+
+卡片按工序分组排列，异常设备自动前置显示。
+
+单设备卡片详细字段：
+
+
+
+
+设备名称、运行状态徽章（正常/预警/报警/离线）。
+
+关联信息：绑定 MES 生产批次号。
+
+数采工作模式：明确标明「生产状态采集」或「设备空转采集」。
+
+2个核心工艺测点实时值（如炉温、真空度、压力等）及双色范围迷你电平条。
+
+渗透/扩散工序设备专属补充：展示扩散泵全参数状态（泵温、泵压、主阀门状态）。
+
+能耗细化指标：展示生产电量、设备空转电量，以及当前所属的「峰/平/谷」用电标识。
+
+4. 模块三：实时告警与MES待确认（宽 ~870px，上下子分隔）
+
+
+
+
+上半区：实时告警列表（高 440px，走马灯滚动）
+
+
+
+
+显示字段：发生时间、报警等级（红/橙/黄/蓝）、工序、设备名、测点名、说明及实时值/阈值对比、已持续时长。
+
+分级与分类标识：明确标注「关键报警」与「常规报警」。
+
+专属报警类型：超高温报警、超低温报警专属标记。
+
+保温过程报警：展示「曲线各段保温平台温度上下限报警（含延时触发标记）」与「保温平台真空度上限报警（包含进入平台前/后各1个参考真空值）」。
+
+追溯统计：显示初始报警时间、累计报警次数、末次报警时间。
+
+下半区：MES下发待确认（高 260px，静态大卡）
+
+
+
+
+顶部醒目大数字提示「待确认工单数」（呼吸闪烁）。
+
+静态展示前 4 张工单卡片：工艺单号、关联批次号、目标工序、核心工艺目标参数（如目标温度、目标真空度、保温时长）。
+
+5. 模块四：集控核心设备运行状态（宽 ~592px，12秒纵向翻页）
+
+
+
+
+聚焦展示 4 大集控工序（烧结、回火、气流磨、氢化）。
+
+单台卡片详细内容：
+
+
+
+
+设备名、加工状态角标（加工中/空闲/停机）。
+
+工艺主数据：关联 MES 批次号、工艺单号、程序号、过程保温标识、设定真空度。
+
+参数归类状态：标明集控数采参数与 MES 任务的归类匹配状态。
+
+能耗数据：该批次累计生产用电量与空转电量。
+
+多段工艺曲线区：呈现多段升温、保温划分；绘制带有科技网格底纹的微型趋势图，展示「设定温度/时间」与「实际输出温度/时间」的双曲线对比，标出物料级别曲线参考与当前保温区间。
+
+当前阶段进度：阶段名称（如烘炉/真空烧结/保温）、已运行时长/总时长、彩色阶段百分比进度条。
 
 This project was built with [Lovable](https://lovable.dev).
 
+**Live app**: https://tech-flow-command.lovable.app
+
 ## Build with Lovable
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/a9e24d16-3ef9-485f-8893-0eb13eb64ece).
 
 - **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
 
 ## Development
 
@@ -20,10 +139,3 @@ cd <repository-name>
 npm i
 npm run dev
 ```
-
-## Built with
-
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
